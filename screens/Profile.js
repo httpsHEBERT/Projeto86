@@ -19,7 +19,8 @@ export default class Profile extends Component {
        const theme = !this.state.isEnabled ? "dark" : "light"
        var updates = {}
        updates["/users/" + firebase.auth().currentUser.uid + "current_theme"] = theme
-       firebase.database({isEnabled: !previous_state, light_theme: previous_state})
+       firebase.database().ref().update(updates)
+       this.setState({isEnabled: !previous_state, light_theme: previous_state})
     }
 
     componentDidMount(){
@@ -60,7 +61,7 @@ export default class Profile extends Component {
                 <View style={styles.screenContainer}>
                     <View style={styles.profileImageContainer}>
                         <Image
-                            source={{ uri: this.state.profile_image }}
+                            source={require("../assets/profile_img.png")}
                             style={styles.profileImage}
                         ></Image>
                         <Text style={styles.nameText}>{this.state.name}</Text>
